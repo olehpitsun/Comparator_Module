@@ -30,9 +30,6 @@ public class Distance {
         contour1 = new LinkedList<Point>(contour1);
         contour2 = new LinkedList<Point>(contour2);
 
-        // For debug
-        Point C1, C2;
-
         double distance = 0;
         //індекс точки для якої відстань Хаусдорфа є найменшою на попередній ітерації
         int prevC2Index = 0;
@@ -53,11 +50,6 @@ public class Distance {
 
         distance = minDistance;
         prevC2Point = contour2.get(prevC2Index);
-
-
-        // for debug
-        C1 = contour1.get(0);
-        C2 = prevC2Point;
 
         /*
         Фаза 2: шукаємо відстані використовуючи алгоритм Аталаха
@@ -131,8 +123,6 @@ public class Distance {
             double d = GeometryUtils.getEuclideanDistance(curPointFromC1, prevC2Point);
             if (d > distance) {
                 distance = d;
-                C1 = curPointFromC1;
-                C2 = prevC2Point;
             }
         }
         return distance;
