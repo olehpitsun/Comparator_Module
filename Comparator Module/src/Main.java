@@ -1,4 +1,5 @@
 import comparator.MainComparator;
+import comparator.atallah.AtallahComparator;
 import comparator.hausdorff.HausdorffComparator;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -25,7 +26,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Open CV version - " + Core.VERSION);
-        
+
         //завантажуємо зображення
         Mat imgExpert = Imgcodecs.imread("Comparator Module/images/1_expert.png");
         Mat imgWatershed = Imgcodecs.imread("Comparator Module/images/1_threshold.png");
@@ -36,10 +37,13 @@ public class Main {
         List<MatOfPoint> contoursWatershed = ImageOperations.prepareContours(imgWatershed);
         List<MatOfPoint> contoursThreshold = ImageOperations.prepareContours(imgThreshold);
 
+        System.out.println(contoursExpert.size() + ", " + contoursWatershed.size() + ", " + contoursThreshold.size());
+
         MainComparator mainComparator = new MainComparator();
 
         // тут додаэмо всі компаратори
         mainComparator.add(new HausdorffComparator());
+        mainComparator.add(new AtallahComparator());
 
         // виводимо результат в консоль
         // повинно бути 0
