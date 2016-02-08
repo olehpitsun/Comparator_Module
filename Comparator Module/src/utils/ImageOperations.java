@@ -2,6 +2,7 @@ package utils;
 
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 import java.util.ArrayList;
@@ -25,10 +26,7 @@ public class ImageOperations {
 
     // повертає список контурів
     private static List<MatOfPoint> getContours(Mat mat){
-        // перетворюємо в сіре
-        Imgproc.cvtColor(mat, mat, Imgproc.COLOR_RGB2GRAY);
-        //конвертуємо вхідне зображення в бінарне
-        Imgproc.threshold(mat, mat, -1, 255, Imgproc.THRESH_BINARY + Imgproc.THRESH_TRIANGLE);
+
         List<MatOfPoint> contours = new ArrayList<>();
         //знаходимо контури
         Imgproc.findContours(mat, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE   );
@@ -46,5 +44,30 @@ public class ImageOperations {
             reducedContours.add(mop);
         }
         return reducedContours;
+    }
+
+    /**
+     * transformation image from string to Mat
+     * @param path
+     * @param treshType for threshold
+     * @return Mat
+     */
+    public static Mat prepareImage(String path, String treshType) {
+        Mat image = Imgcodecs.imread(path, Imgcodecs.IMREAD_COLOR);
+        Imgproc.cvtColor(image, image, Imgproc.COLOR_RGB2GRAY);
+
+        switch (treshType) {
+            case "THRESH_TRIANGLE":
+                Imgproc.threshold(image, image, -1, 255, Imgproc.THRESH_BINARY + Imgproc.THRESH_TRIANGLE);
+                break;
+
+            case "THRESH_OTSU":
+                Imgproc.threshold(image, image, -1, 255, Imgproc.THRESH_BINARY_INV + Imgproc.THRESH_OTSU);
+                break;
+            default:
+                Imgproc.threshold(image, image, -1, 255, Imgproc.THRESH_BINARY);
+                break;
+        }
+        return image;
     }
 }

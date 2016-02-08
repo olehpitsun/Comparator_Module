@@ -73,6 +73,13 @@ public class PolySimplifier {
         return outputPointList;
     }
 
+    public static MatOfPoint reduceRDP(MatOfPoint mop, double epsilon){
+        List<Point> points = PolySimplifier.reduceRDP(mop.toList(),epsilon);
+        MatOfPoint res = new MatOfPoint();
+        res.fromList(points);
+        return  res;
+    }
+
     /*
         Алгоритм Visvalingam-Whyatt
         numberToKeep - кількість точок у вихідній ламаній
