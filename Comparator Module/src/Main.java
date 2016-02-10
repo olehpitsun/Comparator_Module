@@ -1,4 +1,5 @@
 import comparator.MainComparator;
+import comparator.atallah.AtallahComparator;
 import utils.ImageOperations;
 import qualityEstimator.MainEstimator;
 import comparator.hausdorff.HausdorffComparator;
@@ -13,9 +14,9 @@ import java.util.List;
  */
 public class Main {
 
-    private static final String img1 = "C:\\Projects\\Comparator_Module\\Comparator Module\\images\\1_expert.png";
-    private static final String img2 = "C:\\Projects\\Comparator_Module\\Comparator Module\\images\\1_threshold.png";
-    private static final String img3 = "C:\\Projects\\Comparator_Module\\Comparator Module\\images\\1_watershed.png";
+    private static final String img1 = "C:\\Projects\\Comparator_Module\\Comparator Module\\images\\TS_04_25_15_06_12_expert.png";
+    private static final String img2 = "C:\\Projects\\Comparator_Module\\Comparator Module\\images\\TS_04_25_15_06_12_threshold.png";
+    private static final String img3 = "C:\\Projects\\Comparator_Module\\Comparator Module\\images\\TS_04_25_15_06_12_watershed.png";
 
     static {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -36,6 +37,7 @@ public class Main {
 
         // add new comparator
         mainComparator.add(new HausdorffComparator());
+        mainComparator.add(new AtallahComparator());
 
         // compare images
         mainComparator.compare(contoursExpert, contoursExpert);
