@@ -1,6 +1,7 @@
 import comparator.MainComparator;
 import comparator.atallah.AtallahComparator;
 import comparator.frechet.FrechetComparator;
+import comparator.gromovFrechet.GromovFrechetComparator;
 import comparator.hausdorff.HausdorffComparator;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -46,6 +47,7 @@ public class Main {
         mainComparator.add(new HausdorffComparator());
         mainComparator.add(new AtallahComparator());
         mainComparator.add(new FrechetComparator());
+        mainComparator.add(new GromovFrechetComparator());
 
         // виводимо результат в консоль
         // повинно бути 0

@@ -21,7 +21,6 @@ public class Distance {
         return new Distance().frechet(contour1.toList(), contour2.toList());
     }
 
-
     // just the discrete frechet distance algorithm.
     // don't worry about this code
     private double frechet(List<Point> contourA, List<Point> contourB) {
