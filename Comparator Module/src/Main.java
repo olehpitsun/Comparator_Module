@@ -2,6 +2,7 @@ import comparator.MainComparator;
 import comparator.atallah.AtallahComparator;
 import comparator.frechet.FrechetComparator;
 import comparator.gromovFrechet.GromovFrechetComparator;
+import comparator.gromovHausdorff.GromovHausdorffComparator;
 import comparator.hausdorff.HausdorffComparator;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -46,6 +47,7 @@ public class Main {
         // тут додаэмо всі компаратори
         mainComparator.add(new HausdorffComparator());
         mainComparator.add(new AtallahComparator());
+        mainComparator.add(new GromovHausdorffComparator());
         mainComparator.add(new FrechetComparator());
         mainComparator.add(new GromovFrechetComparator());
 
