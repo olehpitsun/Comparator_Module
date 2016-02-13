@@ -28,10 +28,10 @@ public class ImageOperations {
         // перетворюємо в сіре
         Imgproc.cvtColor(mat, mat, Imgproc.COLOR_RGB2GRAY);
         //конвертуємо вхідне зображення в бінарне
-        Imgproc.threshold(mat, mat, -1, 255, Imgproc.THRESH_BINARY + Imgproc.THRESH_TRIANGLE);
+        Imgproc.threshold(mat, mat, -1, 255, Imgproc.THRESH_BINARY_INV + Imgproc.THRESH_TRIANGLE);
         List<MatOfPoint> contours = new ArrayList<>();
         //знаходимо контури
-        Imgproc.findContours(mat, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE   );
+        Imgproc.findContours(mat, contours, new Mat(), Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE   );
         return contours;
     }
 
