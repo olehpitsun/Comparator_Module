@@ -30,10 +30,14 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Open CV version - " + Core.VERSION);
 
+        String expertImgName = "Comparator Module/images/1_expert.png";
+        String thresholdImgName = "Comparator Module/images/1_threshold.png";
+        String watershedImgName = "Comparator Module/images/1_watershed.png";
+
         //завантажуємо зображення
-        Mat imgExpert = Imgcodecs.imread("Comparator Module/images/1_expert.png");
-        Mat imgWatershed = Imgcodecs.imread("Comparator Module/images/1_threshold.png");
-        Mat imgThreshold = Imgcodecs.imread("Comparator Module/images/1_watershed.png");
+        Mat imgExpert = Imgcodecs.imread(expertImgName);
+        Mat imgWatershed = Imgcodecs.imread(thresholdImgName);
+        Mat imgThreshold = Imgcodecs.imread(watershedImgName);
 
         // знаходимо і проріджуємо контури
         List<MatOfPoint> contoursExpert = ImageOperations.prepareContours(imgExpert);
@@ -53,9 +57,13 @@ public class Main {
 
         // виводимо результат в консоль
         // повинно бути 0
+        System.out.println(expertImgName + " => " + expertImgName);
         mainComparator.compare(contoursExpert, contoursExpert);
 
+        System.out.println("\n====================\n" + thresholdImgName + " => " + expertImgName);
         mainComparator.compare(contoursExpert, contoursThreshold);
+
+        System.out.println("\n====================\n" + watershedImgName + " => " + expertImgName);
         mainComparator.compare(contoursExpert, contoursWatershed);
     }
 }
