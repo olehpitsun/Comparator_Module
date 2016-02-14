@@ -1,60 +1,69 @@
 import comparator.MainComparator;
 import comparator.atallah.AtallahComparator;
-import utils.ImageOperations;
-import qualityEstimator.MainEstimator;
+import comparator.frechet.FrechetComparator;
+import comparator.gromovFrechet.GromovFrechetComparator;
+import comparator.gromovHausdorff.GromovHausdorffComparator;
 import comparator.hausdorff.HausdorffComparator;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
+import org.opencv.imgcodecs.Imgcodecs;
+import utils.ImageOperations;
+
+import java.io.File;
 import java.util.List;
 
 /**
- *
+ * тут все запускається.
+ * Велике прохання не чіпати {@link comparator.Comparator} і {@link comparator.MainComparator}
+ * Бажано не міняти коду взагалі, а просто додайте своє.
+ * В пакеті utils вже можуть існувати методи які ваи потрібні ({@link utils.GeometryUtils})
+ * <p>
  * Created by Vit on 07.02.2016.
  */
 public class Main {
-
-    private static final String img1 = "C:\\Projects\\Comparator_Module\\Comparator Module\\images\\TS_04_25_15_06_12_expert.png";
-    private static final String img2 = "C:\\Projects\\Comparator_Module\\Comparator Module\\images\\TS_04_25_15_06_12_threshold.png";
-    private static final String img3 = "C:\\Projects\\Comparator_Module\\Comparator Module\\images\\TS_04_25_15_06_12_watershed.png";
 
     static {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         System.out.println("Open CV version - " + Core.VERSION);
 
-        Mat imgExpert = ImageOperations.prepareImage(img1,"THRESH_TRIANGLE");
-        Mat imgWatershed = ImageOperations.prepareImage(img2, "THRESH_TRIANGLE");
-        Mat imgThreshold = ImageOperations.prepareImage(img3, "THRESH_TRIANGLE");
+        String expertImgName = "C:\\Projects\\Comparator_Module\\Comparator Module\\images\\1_expert.png";
+        String thresholdImgName = "C:\\Projects\\Comparator_Module\\Comparator Module\\images\\1_threshold.png";
+        String watershedImgName = "C:\\Projects\\Comparator_Module\\Comparator Module\\images\\1_watershed.png";
 
+        //завантажуємо зображення
+        Mat imgExpert = ImageOperations.prepareImage(expertImgName,"THRESH_TRIANGLE");
+        Mat imgWatershed = ImageOperations.prepareImage(thresholdImgName, "THRESH_TRIANGLE");
+        Mat imgThreshold = ImageOperations.prepareImage(watershedImgName, "THRESH_TRIANGLE");
+
+        // знаходимо і проріджуємо контури
         List<MatOfPoint> contoursExpert = ImageOperations.prepareContours(imgExpert);
         List<MatOfPoint> contoursWatershed = ImageOperations.prepareContours(imgWatershed);
         List<MatOfPoint> contoursThreshold = ImageOperations.prepareContours(imgThreshold);
 
+        System.out.println(contoursExpert.size() + ", " + contoursWatershed.size() + ", " + contoursThreshold.size());
+
         MainComparator mainComparator = new MainComparator();
 
-        // add new comparator
+        // тут додаэмо всі компаратори
         mainComparator.add(new HausdorffComparator());
         mainComparator.add(new AtallahComparator());
+        mainComparator.add(new GromovHausdorffComparator());
+        mainComparator.add(new FrechetComparator());
+        mainComparator.add(new GromovFrechetComparator());
 
-        // compare images
+        // виводимо результат в консоль
+        // повинно бути 0
+        System.out.println(expertImgName + " => " + expertImgName);
         mainComparator.compare(contoursExpert, contoursExpert);
+
+        System.out.println("\n====================\n" + thresholdImgName + " => " + expertImgName);
         mainComparator.compare(contoursExpert, contoursThreshold);
+
+        System.out.println("\n====================\n" + watershedImgName + " => " + expertImgName);
         mainComparator.compare(contoursExpert, contoursWatershed);
-
-        qualityEstimator();
-    }
-
-    /**
-     * prepare images and call qualityEstimator (by Ihor Lubarskiy)
-     */
-    public static void qualityEstimator(){
-        Mat imq_1 = ImageOperations.prepareImage(img1, "THRESH_OTSU");
-        Mat img_2 = ImageOperations.prepareImage(img2, "THRESH_OTSU");
-
-        MainEstimator est = new  MainEstimator();
-        est.Estimator(imq_1,img_2);
     }
 }

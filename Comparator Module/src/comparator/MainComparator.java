@@ -32,7 +32,7 @@ public class MainComparator {
         long time;
         for (Comparator comparator : this.comparators) {
             time = System.currentTimeMillis();
-            System.out.println(comparator.getName() + ". distance - " + getDistance(image1, image2, comparator));
+            System.out.println("\n" + comparator.getName() + ". distance - " + getDistance(image1, image2, comparator));
             System.out.println("Time - " + (System.currentTimeMillis() - time) + " millis");
         }
     }
