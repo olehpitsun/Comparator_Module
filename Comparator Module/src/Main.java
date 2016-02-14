@@ -30,9 +30,9 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Open CV version - " + Core.VERSION);
 
-        String expertImgName = "C:\\Projects\\Comparator_Module\\Comparator Module\\images\\1_expert.png";
-        String thresholdImgName = "C:\\Projects\\Comparator_Module\\Comparator Module\\images\\1_threshold.png";
-        String watershedImgName = "C:\\Projects\\Comparator_Module\\Comparator Module\\images\\1_watershed.png";
+        String expertImgName = "Comparator Module/images/1_expert.png";
+        String thresholdImgName = "Comparator Module/images/1_threshold.png";
+        String watershedImgName = "Comparator Module/images/1_watershed.png";
 
         //завантажуємо зображення
         Mat imgExpert = ImageOperations.prepareImage(expertImgName,"THRESH_TRIANGLE");

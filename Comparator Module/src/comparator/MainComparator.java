@@ -16,6 +16,8 @@ import java.util.List;
 public class MainComparator {
 
     List<Comparator> comparators;
+    Double Gr_HausdorffDistance;
+    Double GR_FrechetDistance;
 
     public MainComparator(){
         this.comparators = new ArrayList<>();
@@ -32,9 +34,28 @@ public class MainComparator {
         long time;
         for (Comparator comparator : this.comparators) {
             time = System.currentTimeMillis();
-            System.out.println("\n" + comparator.getName() + ". distance - " + getDistance(image1, image2, comparator));
+
+            Double Distance =  getDistance(image1, image2, comparator);
+            System.out.println("\n" + comparator.getName() + ". distance - " + Distance);
             System.out.println("Time - " + (System.currentTimeMillis() - time) + " millis");
+
+            if(comparator.getName() =="Gromov-Frechet"){
+                this.GR_FrechetDistance = Distance;
+            }
+            if(comparator.getName() =="Gromov-Hausdorff"){
+                this.Gr_HausdorffDistance = Distance;
+            }
         }
+
+        Result();
+    }
+
+    /**
+     * функція для підрахунку результату за 2 метриками
+     */
+    private void Result(){
+        Double result = 0.5 * this.GR_FrechetDistance + 0.5 * this.Gr_HausdorffDistance;
+        System.out.print( "\u001B[34m" +"Result:  " + result + "\u001B[0m");
     }
 
     /* Алгоритм порівняння двох зображень (може бути змінений на будь-який інший)
