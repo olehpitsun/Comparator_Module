@@ -16,13 +16,21 @@ import java.util.List;
 public class MainComparator {
 
     List<Comparator> comparators;
+    List<Double> weights;
 
     public MainComparator(){
         this.comparators = new ArrayList<>();
+        this.weights = new ArrayList<>();
     }
 
     public void add(Comparator comparator){
         this.comparators.add(comparator);
+        this.weights.add(0.0);
+    }
+
+    public void add(Comparator comparator, double weight){
+        this.comparators.add(comparator);
+        this.weights.add(weight);
     }
 
     /* порівнює зображення всіма доступними компараторами
@@ -30,11 +38,19 @@ public class MainComparator {
      */
     public void compare(List<MatOfPoint> image1, List<MatOfPoint> image2) {
         long time;
-        for (Comparator comparator : this.comparators) {
+
+        double comparationResult = 0;
+        for (int i=0; i<this.comparators.size(); i++) {
+            Comparator comparator = this.comparators.get(i);
             time = System.currentTimeMillis();
-            System.out.println("\n" + comparator.getName() + ". distance - " + getDistance(image1, image2, comparator));
+            double distance = getDistance(image1, image2, comparator);
+            comparationResult += distance * this.weights.get(i);
+
+            System.out.println("\n" + comparator.getName() + ". distance - " + distance);
             System.out.println("Time - " + (System.currentTimeMillis() - time) + " millis");
         }
+
+        System.out.println("\n\n\nAll program result: " + comparationResult);
     }
 
     /* Алгоритм порівняння двох зображень (може бути змінений на будь-який інший)

@@ -51,8 +51,8 @@ public class Main {
         // тут додаэмо всі компаратори
         mainComparator.add(new HausdorffComparator());
         mainComparator.add(new AtallahComparator());
-        mainComparator.add(new GromovHausdorffComparator());
         mainComparator.add(new FrechetComparator());
+        mainComparator.add(new GromovHausdorffComparator());
         mainComparator.add(new GromovFrechetComparator());
 
         // виводимо результат в консоль
