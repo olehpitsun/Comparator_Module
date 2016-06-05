@@ -8,9 +8,11 @@ import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.imgcodecs.Imgcodecs;
+import skeletonEstimator.Skeleton;
 import utils.ImageOperations;
 
 import java.io.File;
+import java.nio.channels.SelectionKey;
 import java.util.List;
 
 /**
@@ -30,7 +32,9 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Open CV version - " + Core.VERSION);
 
-        String expertImgName = "Comparator Module/images/1_expert.png";
+        //виклик функції порівняння скелетонів
+        skeletonEstimator();
+        /*String expertImgName = "Comparator Module/images/1_expert.png";
         String thresholdImgName = "Comparator Module/images/1_threshold.png";
         String watershedImgName = "Comparator Module/images/1_watershed.png";
 
@@ -64,6 +68,28 @@ public class Main {
         mainComparator.compare(contoursExpert, contoursThreshold);
 
         System.out.println("\n====================\n" + watershedImgName + " => " + expertImgName);
-        mainComparator.compare(contoursExpert, contoursWatershed);
+        mainComparator.compare(contoursExpert, contoursWatershed);*/
+    }
+
+    public static void skeletonEstimator(){
+
+        double[][] Line_original = {
+                {297,452},
+                {435,508}
+        };
+
+        double[][] Line_2 = {
+                {342,102},
+                {303,253},
+                {277,268},
+                {263,304},
+                {311,351},
+
+        };
+
+        Skeleton skeleton = new Skeleton(Line_original, Line_2);
+
+
+
     }
 }
