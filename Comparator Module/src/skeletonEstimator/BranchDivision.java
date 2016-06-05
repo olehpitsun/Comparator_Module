@@ -1,5 +1,7 @@
 package skeletonEstimator;
 
+import skeletonEstimator.Trees.Branch;
+
 /**
  * Created by oleh on 05.06.2016.
  */
@@ -26,7 +28,7 @@ public class BranchDivision {
         for(int i = 1; i <= div_Num; i++){
 
             X_temp +=delta;
-            double y =  Math.abs(0.4*X_temp + 331.5);
+            double y =  Math.abs(Branch.getA()*X_temp + Branch.getB());
             dividedBranch[i][0] = X_temp;
             dividedBranch[i][1] = y;
             System.out.println("X_" + i + " "+ + dividedBranch[i][0] + " Y_" + i + " " + dividedBranch[i][1]);
